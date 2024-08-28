@@ -1,0 +1,24 @@
+1. John Lewis
+   username: johnlewis
+   password: password123
+   emaill: johnlewis@example.com
+
+2. Jane Smith
+   username: janesmith
+   password: password456
+   email: janesmith@example.com
+
+3. Tom Brown
+   username: tombrown
+   password: password789
+   email: tombrown@example.com
+
+4. Sue White
+   username: suewhite
+   password: passwordabc
+   email: suewhite@example.com
+
+5. Bob Green
+   username: bobgreen
+   password: passworddef
+   email: bobgreen@example.com

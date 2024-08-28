@@ -10,6 +10,10 @@ from rest_framework.views import APIView
 
 
 
+class OrderPagination(pagination.PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
 
 class CustomUserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -129,7 +133,7 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class MenuItemView(generics.ListCreateAPIView):
-    queryset = MenuItem.objects.filter(featured=True).order_by('id')
+    queryset = MenuItem.objects.filter()
     serializer_class = MenuItemSerializer
     permission_classes = [ReadOnlyOrIsManager]
 
@@ -138,6 +142,11 @@ class MenuItemView(generics.ListCreateAPIView):
 
 class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
+    permission_classes = [ReadOnlyOrIsManager]
+
+class FeaturedMenuItemView(generics.ListAPIView):
+    queryset = MenuItem.objects.filter(featured=True)
     serializer_class = MenuItemSerializer
     permission_classes = [ReadOnlyOrIsManager]
 
@@ -152,10 +161,7 @@ class CartDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class OrderPagination(pagination.PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 100
+
 class OrderView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -227,7 +233,7 @@ class AvailableTimesView(APIView):
 class TestimonialListCreateView(generics.ListCreateAPIView):
     queryset = Testimonial.objects.all()
     serializer_class = TestimonialSerializer
-    permission_classes = [permissions.IsAuthenticated, IsCustomer]
+    permission_classes = [ReadOnlyOrIsManager]
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

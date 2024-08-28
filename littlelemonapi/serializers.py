@@ -58,5 +58,8 @@ class TestimonialSerializer(serializers.ModelSerializer):
         
     def get_photo_url(self, obj):
         if obj.photo:
-            return self.context['request'].build_absolute_uri(obj.photo.url)
+            request = self.context.get('request')
+            if request is not None:
+                return request.build_absolute_uri(obj.photo.url)
+            return obj.photo.url
         return None

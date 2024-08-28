@@ -3,7 +3,7 @@ from .views import (
     CustomUserView, CustomUserDetailView, ManagerMenuItemView,
     ManagerOrderListView, ManagerRoleUpdateView, ManagerUserListView, 
     DeliveryCrewOrderListView, UpdateOrderStatusView, 
-    CategoryView, CategoryDetailView, MenuItemView, MenuItemDetail, 
+    CategoryView, CategoryDetailView, MenuItemView, MenuItemDetail, FeaturedMenuItemView, 
     CartView, CartDetailView, OrderView, OrderDetailView, 
     OrderItemView, OrderItemDetail, TestimonialListCreateView, ReservationListCreateView, AvailableTimesView, ReservationDetailView, PaymentView
 )
@@ -20,7 +20,7 @@ urlpatterns = [
     path('categories/', CategoryView.as_view(), name='category-list'),
     path('categories/<int:pk>/', CategoryDetailView.as_view(), name='category-detail'),
     path('menu-items/', MenuItemView.as_view(), name='menuitem-list'),
-    path('featured-menu-items/', MenuItemView.as_view(), name='featured-menuitem-list'),
+    path('featured-menu-items/', FeaturedMenuItemView.as_view(), name='featured-menuitem-list'),
     path('menu-items/<int:pk>/', MenuItemDetail.as_view(), name='menuitem-detail'),
     path('carts/', CartView.as_view(), name='cart-list'),
     path('carts/<int:pk>/', CartDetailView.as_view(), name='cart-detail'),
@@ -32,5 +32,5 @@ urlpatterns = [
     path('reservations/', ReservationListCreateView.as_view(), name='reservation-list'),
     path('reservations/<int:pk>/', ReservationDetailView.as_view(), name='reservation-detail'),
     path('reservations/available-times/', AvailableTimesView.as_view(), name='available-times'),
-    path('testimonials/', TestimonialListCreateView.as_view(), name='testimonial-list'),
+    path('testimonial/', TestimonialListCreateView.as_view(), name='testimonial-list'),
 ]

@@ -61,6 +61,7 @@ class Category(models.Model):
     
     def __str__(self):
         return self.title
+    
 
 class MenuItem(models.Model):
     title = models.CharField(max_length=255, db_index=True)
@@ -70,9 +71,23 @@ class MenuItem(models.Model):
     description = models.TextField(null=True)
     featured = models.BooleanField(db_index=False)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ['title']
     
     def __str__(self):
         return self.title
+    
+class FeaturedMenuItem(models.Model):
+    menuitem = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, db_index=True)
+    description = models.TextField(null=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, db_index=True)
+    featured = models.BooleanField(db_index=False)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ['title']
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -131,7 +146,7 @@ class Table(models.Model):
         return f'Table {self.number} in {self.location}'
 
 class Testimonial(models.Model):
-    photo = models.ImageField(upload_to='testimonial_photos/', blank=True, null=True)
+    photo_url = models.ImageField(upload_to='testimonial_photos/', blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
